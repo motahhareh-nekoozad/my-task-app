@@ -4,5 +4,11 @@ export default defineNuxtConfig({
  css: ['@/assets/css/tailwind.css'],
    modules: [
     '@nuxtjs/tailwindcss',
-  ],
+  ],  
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false, // optional: removes folder prefix
+    }
+  ]
 })
