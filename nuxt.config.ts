@@ -10,5 +10,8 @@ export default defineNuxtConfig({
       path: '~/components',
       pathPrefix: false, // optional: removes folder prefix
     }
-  ]
+  ],
+    build: {
+    transpile: []
+  }
 })

@@ -3,14 +3,14 @@
         <!-- Quality box -->
         <div class="w-full bg-white rounded-sm text-center ">
             <span class="text-[#AB070F] font-bold text-md">
-                {{ videoData?.quality }}
+                1080
             </span>
         </div>
 
         <!-- Ref / source -->
         <div class="mt-1">
             <span class="text-white text-xs font-semibold">
-                {{ videoData?.ref }}
+                WebDl
             </span>
         </div>
     </div>

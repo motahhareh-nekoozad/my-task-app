@@ -1,65 +1,83 @@
+<template>
+    <div class="w-full h-full " v-if="video?.video_url">
+        <video ref="videoRef" controls class="w-full h-full bg-black rounded-lg"></video>
+
+        <!-- Subtitle toggle -->
+        <button v-if="video.subtitle" @click="toggleSubtitle"
+            class="mt-2 px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-700 transition">
+            {{ showSubtitle ? 'Hide Subtitles' : 'Show Subtitles' }}
+        </button>
+
+        <!-- Time / Duration display -->
+        <div class="text-white mt-1 text-sm">
+            {{ Math.floor(currentTime) }} / {{ Math.floor(duration) }} seconds
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import Hls from 'hls.js'
 
-// Props
 const props = defineProps<{
-    videoUrl: string
-    subtitleUrl?: string
+    video?: { video_url: string; subtitle?: string }
 }>()
 
 const videoRef = ref<HTMLVideoElement | null>(null)
 const showSubtitle = ref(true)
 const currentTime = ref(0)
 const duration = ref(0)
+let trackEl: HTMLTrackElement | null = null
 
-onMounted(() => {
-    if (!videoRef.value) return
-
+// Setup video player with HLS and subtitles
+const setupVideo = (videoObj?: { video_url: string; subtitle?: string }) => {
+    if (!videoRef.value || !videoObj?.video_url) return
     const video = videoRef.value
 
-    // Initialize HLS if needed
-    if (Hls.isSupported() && props.videoUrl.endsWith('.m3u8')) {
+    // Clear previous source and track
+    video.src = ''
+    if (trackEl) video.removeChild(trackEl)
+    trackEl = null
+
+    // HLS playback
+    if (Hls.isSupported() && videoObj.video_url.endsWith('.m3u8')) {
         const hls = new Hls()
-        hls.loadSource(props.videoUrl)
+        hls.loadSource(videoObj.video_url)
         hls.attachMedia(video)
     } else {
-        // Fallback for browsers that support HLS natively (Safari)
-        video.src = props.videoUrl
+        video.src = videoObj.video_url
     }
 
-    // Load subtitle track
-    if (props.subtitleUrl) {
-        const track = document.createElement('track')
-        track.kind = 'subtitles'
-        track.label = 'English'
-        track.srclang = 'en'
-        track.src = props.subtitleUrl
-        track.default = showSubtitle.value
-        video.appendChild(track)
+    // Subtitles
+    if (videoObj.subtitle) {
+        trackEl = document.createElement('track')
+        trackEl.kind = 'subtitles'
+        trackEl.label = 'English'
+        trackEl.srclang = 'en'
+        trackEl.src = videoObj.subtitle
+        trackEl.default = showSubtitle.value
+        video.appendChild(trackEl)
     }
 
-    // Update time / duration
+    // Update current time / duration
     video.addEventListener('timeupdate', () => {
         currentTime.value = video.currentTime
         duration.value = video.duration
     })
-})
+}
+
+// Toggle subtitles
+const toggleSubtitle = () => {
+    if (trackEl) trackEl.mode = showSubtitle.value ? 'disabled' : 'showing'
+    showSubtitle.value = !showSubtitle.value
+}
+
+// Watch for changes in video object (async API)
+watch(
+    () => props.video,
+    (newVideo) => {
+        setupVideo(newVideo)
+    },
+    { immediate: true }
+)
 </script>
-
-<template>
-    <div class="video-player w-full max-w-3xl">
-        <video ref="videoRef" controls class="w-full bg-black"></video>
-
-        <!-- Subtitle toggle -->
-        <button v-if="props.subtitleUrl" @click="showSubtitle = !showSubtitle"
-            class="mt-2 px-3 py-1 bg-gray-800 text-white rounded">
-            {{ showSubtitle ? 'Hide Subtitles' : 'Show Subtitles' }}
-        </button>
-
-        <!-- Time / Duration display -->
-        <div class="text-white mt-1">
-            {{ Math.floor(currentTime) }} / {{ Math.floor(duration) }} seconds
-        </div>
-    </div>
-</template>

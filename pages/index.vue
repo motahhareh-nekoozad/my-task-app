@@ -23,7 +23,7 @@ onMounted(async () => {
 <template>
     <div class="grid grid-cols-2 gap-2">
         <div>
-
+            <BaseItemList />
         </div>
         <div>
             <VideoPlayerContainer v-if="videoUrl" :video-url="videoUrl" :subtitle-url="subtitleUrl" :video />
