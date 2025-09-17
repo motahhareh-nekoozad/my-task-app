@@ -1,11 +1,13 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col h-full">
         <div class="flex justify-between mb-2">
             <BaseSelect :options="videoQualities" :modelValue="{ label: '1080p - webdl  کیفیت ', value: '1080' }" />
             <VideoContainerTitle :movie="movie" />
         </div>
-        <div class="w-full">
-            <VideoPlayer :video="video" class=" mb-2" />
+
+        <div class="w-full flex-1 h-full flex flex-col">
+            <VideoPlayer :video="video" class="flex-1 mb-2" />
+
             <div class="flex flex-row-reverse gap-2 justify-between">
                 <div class="flex flex-row-reverse gap-2">
                     <BaseButton label="پلیر تلوزیون های سامسونگ" />
@@ -15,12 +17,12 @@
 
                 <div class="flex items-center gap-2">
                     <BaseButton :underlinedText="true" buttonType="secondary" label="اعلام مشکل" />
-
-                    <p class="text-[#9DA5B2] text-xs font-bold font-yekan-fa"> حین تماشا با مشکلی رو به رو شدید؟</p>
+                    <p class="text-[#9DA5B2] text-xs font-bold font-yekan-fa">
+                        حین تماشا با مشکلی رو به رو شدید؟
+                    </p>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
