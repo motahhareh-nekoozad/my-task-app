@@ -5,7 +5,7 @@ const props = defineProps({
         type: String,
         required: true
     },
-    class: 
+    class: {}
 })
 
 </script>
