@@ -1,12 +1,19 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex justify-between mb-4">
+        <div class="flex justify-between mb-2">
             <BaseSelect :options="videoQualities" :modelValue="{ label: '1080p - webdl  کیفیت ', value: '1080' }" />
             <VideoContainerTitle :movie="movie" />
         </div>
         <div class="w-full">
-            <VideoPlayer :video="video" />
+            <VideoPlayer :video="video" class=" mb-2" />
+            <div class="flex flex-row-reverse gap-2">
+                <BaseButton label="پلیر تلوزیون های سامسونگ" />
+                <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
+                <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
+
+            </div>
         </div>
+
     </div>
 </template>
 

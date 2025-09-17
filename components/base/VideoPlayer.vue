@@ -1,17 +1,17 @@
 <template>
-    <div class="w-full h-full " v-if="video?.video_url">
+    <div class="w-full object-center object-cover h-full " v-if="video?.video_url">
         <video ref="videoRef" controls class="w-full h-full bg-black rounded-lg"></video>
 
         <!-- Subtitle toggle -->
-        <button v-if="video.subtitle" @click="toggleSubtitle"
+        <!-- <button v-if="video.subtitle" @click="toggleSubtitle"
             class="mt-2 px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-700 transition">
             {{ showSubtitle ? 'Hide Subtitles' : 'Show Subtitles' }}
-        </button>
+        </button> -->
 
         <!-- Time / Duration display -->
-        <div class="text-white mt-1 text-sm">
+        <!-- <div class="text-white mt-1 text-sm">
             {{ Math.floor(currentTime) }} / {{ Math.floor(duration) }} seconds
-        </div>
+        </div> -->
     </div>
 </template>
 
