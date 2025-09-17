@@ -1,5 +1,5 @@
 <template>
-    <button class="flex items-center gap-1 p-3 rounded-e rounded-s transition-transform  duration-200
+    <button @click="handleClick" class="flex items-center gap-1 p-3 rounded-e rounded-s transition-transform  duration-200
            disabled:opacity-50 disabled:cursor-not-allowed
            hover:scale-105 hover:shadow-md"
         :class="buttonType === 'primary' ? 'bg-primary hover:bg-primary/90' : 'bg-secondary hover:bg-secondary/90'"
@@ -27,4 +27,11 @@ const props = defineProps({
     icon: {},
     classIcon: {}
 })
+
+const emits = defineEmits(['handleClick'])
+
+
+const handleClick = () => {
+    emits('handleClick')
+}
 </script>
