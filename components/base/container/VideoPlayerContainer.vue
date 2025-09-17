@@ -39,7 +39,6 @@ const selectedQuality = ref('1080')
 
 
 const selectQuality = (value: string) => {
-    console.log("🚀 ~ selectQuality ~ value:", value)
     selectedQuality.value = value.value
 }
 const videoQualities = [
