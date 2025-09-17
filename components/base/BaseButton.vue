@@ -1,7 +1,7 @@
 <template>
     <button class="flex items-center gap-1 p-3 rounded-e rounded-s"
         :class="buttonType === 'primary' ? 'bg-primary' : 'bg-secondary'">
-        <p class="font-extrabold text-white text-xs">{{ label }}</p>
+        <p class="font-yekan-fa font-extrabold text-white text-xs" :class="underlinedText ? 'underline' : ''">{{ label }}</p>
     </button>
 </template>
 
@@ -20,6 +20,9 @@ const props = defineProps({
     },
     buttonType: {
         default: 'primary'
+    },
+    underlinedText: {
+        default: false
     }
 })
 </script>

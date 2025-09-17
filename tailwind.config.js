@@ -15,6 +15,10 @@ module.exports = {
         primary: "#AB070F99",
         secondary: "#242629",
       },
+      fontFamily: {
+        "yekan-fa": ["Yekan", "sans-serif"], // مخصوص فارسی
+        "yekan-en": ["Inter", "Arial", "sans-serif"], // مخصوص انگلیسی
+      },
     },
   },
   plugins: [],

@@ -9,13 +9,13 @@
         <div class="flex-1 gap-1 text-right flex flex-col  justify-between">
             <!-- Titles -->
             <div class="flex flex-col gap-1">
-                <h3 class="text-lg text-white font-extrabold leading-tight">
+                <h3 class="text-lg font-yekan-en text-white font-extrabold leading-tight">
                     {{ video?.title }}
                 </h3>
-                <h4 class="text-sm font-normal text-[#9DA5B2]">
+                <h4 class="text-sm font-normal font-yekan-en text-[#9DA5B2]">
                     {{ video?.secondTitle || '6.5 per meter' }}
                 </h4>
-                <h4 class="text-sm font-normal text-[#9DA5B2]">
+                <h4 class="text-sm font-normal font-yekan-fa text-[#9DA5B2]">
                     {{ video?.genre || 'اجتماعی،سیاسی، هیجانی' }}
                 </h4>
             </div>
@@ -24,10 +24,10 @@
             <div class="flex justify-between mt-2 items-center">
                 <div class="flex items-center gap-1">
                     <icon icon="material-symbols:star-rounded" color="#F3B209" width="18" />
-                    <span class="text-white font-extrabold text-sm">{{ movie?.user_rating || '3.5' }}</span>
-                    <span class="text-[#9DA5B2] text-sm">{{ video?.score || '( رای 12)' }}</span>
+                    <span class="text-white font-extrabold text-sm font-yekan-en">{{ movie?.user_rating || '3.5' }}</span>
+                    <span class="text-[#9DA5B2] text-sm font-yekan-fa">{{ video?.score || '(۱۲رای)' }}</span>
                 </div>
-                <span class="text-[#9DA5B2] text-sm">{{ movie?.year || '۲۰۲۳' }}</span>
+                <span class="text-[#9DA5B2] text-sm font-yekan-en">{{ movie?.year || '۲۰۲۳' }}</span>
             </div>
 
             <!--Different Application Rating-->

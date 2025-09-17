@@ -7,10 +7,10 @@
 
         <!-- Text container -->
         <div class="flex flex-col justify-between items-stretch gap-1 text-right">
-            <p class=" text-lg font-black text-white leading-tight">
+            <p class="font-yekan-en text-lg font-black text-white leading-tight">
                 {{ movie?.title_en }}
             </p>
-            <p class=" text-sm font-normal text-white leading-tight">
+            <p class="font-yekan-fa text-sm font-normal text-white leading-tight">
                 {{ movie?.title_fa }}
             </p>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="text-white text-base  items-center font-semibold px-4 py-2 hover:bg-gray-700 rounded cursor-pointer">
+    <div class="text-white text-base  items-center font-semibold px-4 py-2  hover:bg-gray-700 rounded cursor-pointer">
         {{ item }}
     </div>
 </template>

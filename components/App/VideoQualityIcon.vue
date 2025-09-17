@@ -9,7 +9,7 @@
 
         <!-- Ref / source -->
         <div class="mt-1">
-            <span class="text-white text-xs font-semibold">
+            <span class="text-white font-yekan-en text-xs font-semibold">
                 WebDl
             </span>
         </div>

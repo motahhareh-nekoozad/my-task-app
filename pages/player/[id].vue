@@ -13,7 +13,7 @@
                 <div class="mt-4 flex justify-center">
                     <button class="flex items-end gap-2 px-4 py-2  text-white font-semibold rounded-md transition">
                         <Icon icon="solar:arrow-left-outline" width="20" height="20" />
-                        <p class="font-extrabold text-sm">مشاهده همه فیلم‌ها</p>
+                        <p class="font-extrabold text-sm font-yekan-fa">مشاهده همه فیلم‌ها</p>
                     </button>
                 </div>
             </div>

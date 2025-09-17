@@ -6,11 +6,18 @@
         </div>
         <div class="w-full">
             <VideoPlayer :video="video" class=" mb-2" />
-            <div class="flex flex-row-reverse gap-2">
-                <BaseButton label="پلیر تلوزیون های سامسونگ" />
-                <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
-                <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
+            <div class="flex flex-row-reverse gap-2 justify-between">
+                <div class="flex flex-row-reverse gap-2">
+                    <BaseButton label="پلیر تلوزیون های سامسونگ" />
+                    <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
+                    <BaseButton buttonType="secondary" label="پلیر تلوزیون های قدیمی" />
+                </div>
 
+                <div class="flex items-center gap-2">
+                    <BaseButton :underlinedText="true" buttonType="secondary" label="اعلام مشکل" />
+
+                    <p class="text-[#9DA5B2] text-xs font-bold font-yekan-fa"> حین تماشا با مشکلی رو به رو شدید؟</p>
+                </div>
             </div>
         </div>
 

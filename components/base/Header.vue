@@ -12,7 +12,7 @@
             </div>
             <div class="flex items-center justify-center">
                 <!-- Menu Items -->
-                <div class="flex space-x-2">
+                <div class="flex flex-row-reverse space-x-2">
                     <div v-for="item in menuItems" :key="item" class="hover:cursor-pointer">
                         <MenuItem :item="item" />
                     </div>
