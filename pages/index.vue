@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center min-h-screen">
-        <BaseButton @handleClick="handleClick" label="بریم ویدیو رو ببینیم" />
+        <BaseButton @handleClick="handleClick" label="بریم ویدیو رو ببینیم" icon="solar:eye-broken" />
     </div>
 </template>
 

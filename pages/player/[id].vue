@@ -1,10 +1,10 @@
 <template>
-    <div v-loading="store.loading" class="mx-auto px-4 py-6 min-h-screen">
+    <div class="mx-auto px-4 py-6 min-h-screen">
         <BaseButton class="mb-4" button-type="secondary" label="بازگشت" icon="iconamoon:arrow-left-2-thin" />
 
         <div class="flex flex-col lg:flex-row gap-8 items-stretch min-h-full">
             <!-- Sidebar: Episodes -->
-            <div class="w-full lg:w-1/3 flex flex-col h-full">
+            <div v-loading="store?.movieInfoLoading" class="w-full lg:w-1/3 flex flex-col h-full">
                 <!-- VideoOptions emits updateRating -->
                 <VideoOptions @update-rating="handleRating" />
 
@@ -23,7 +23,7 @@
             </div>
 
             <!-- Main Column: Video Player + Info -->
-            <div class="lg:w-2/3 flex flex-col gap-4 h-full">
+            <div v-loading="store.movieLoading" class="lg:w-2/3 flex flex-col gap-4 h-full">
                 <VideoPlayerContainer :movie="store.movie" :video="store.video" class="flex-1" />
             </div>
         </div>

@@ -6,25 +6,26 @@ export const useMovieStore = defineStore('movie', () => {
   const video = ref<any>({})
   const voted = ref(false)
   const currentRating = ref(0)
-  const loading = ref(false)
+  const movieLoading = ref(false)
+  const movieInfoLoading = ref(false)
 
   const fetchMovie = async (id: string | number) => {
-    loading.value = true
+    movieLoading.value = true
     try {
       const res = await $fetch(`https://ylnk.site/test/?action=info&id=${id}`)
       movie.value = res
       currentRating.value = res.user_rating || 0
     } finally {
-      loading.value = false
+      movieLoading.value = false
     }
   }
   const fetchVideo = async (id: string | number) => {
-    loading.value = true
+    movieInfoLoading.value = true
     try {
       const res = await $fetch(`https://ylnk.site/test/?action=stream&id=${id}`)
       video.value = res
     } finally {
-      loading.value = false
+      movieInfoLoading.value = false
     }
   }
 
@@ -49,5 +50,5 @@ const onStarUpdate = async (movieId: string | number, value: number) => {
 }
 
 
-  return { movie, video, voted, currentRating,loading, fetchMovie, fetchVideo, onStarUpdate }
+  return { movie, video, voted, currentRating,movieLoading, movieInfoLoading, fetchMovie, fetchVideo, onStarUpdate }
 })
