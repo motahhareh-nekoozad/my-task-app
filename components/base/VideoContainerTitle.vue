@@ -2,7 +2,7 @@
     <div class="flex flex-row-reverse w-full items-center gap-2">
         <!-- Icon -->
         <div class="items-center hidden lg:flex">
-            <VideoQualityIcon :videoData="movie" />
+            <VideoQualityIcon :selectedQuality :videoData="movie" />
         </div>
 
         <!-- Text container -->
@@ -52,7 +52,8 @@ const props = defineProps({
     movie: {
         type: Object as () => VideoData,
         default: () => ({ quality: '1080', ref: 'WebDl', persianName: 'ال کامینو', englishName: 'EL CAMINO' })
-    }
+    },
+    selectedQuality: { type: String }
 })
 
 

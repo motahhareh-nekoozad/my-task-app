@@ -3,7 +3,7 @@
         <!-- Quality box -->
         <div class="w-full bg-white rounded-sm text-center ">
             <span class="text-[#AB070F] font-bold text-md">
-                1080
+                {{ selectedQuality }}
             </span>
         </div>
 
@@ -23,7 +23,8 @@ interface VideoData {
 }
 
 const props = defineProps<{
-    videoData?: VideoData
+    videoData?: VideoData,
+    selectedQuality?: string
 }>()
 
 // Default value if prop not provided

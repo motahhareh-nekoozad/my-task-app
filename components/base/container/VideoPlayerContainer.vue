@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col h-full">
         <div class="flex justify-between items-center mb-2">
-            <BaseSelect class="hidden lg:flex lg:w-full" :options="videoQualities"
+            <BaseSelect @update:modelValue="selectQuality" class="hidden lg:flex lg:w-full" :options="videoQualities"
                 :modelValue="{ label: '1080p - webdl  کیفیت ', value: '1080' }" />
-            <VideoContainerTitle class="flex w-auto  lg:w-full" :movie="movie" />
+            <VideoContainerTitle class="flex w-auto  lg:w-full" :selectedQuality :movie="movie" />
         </div>
         <div class="w-full flex-1 h-full flex flex-col">
             <VideoPlayer :video="video" class="flex-1 mb-2" />
@@ -35,6 +35,13 @@ const props = defineProps<{
     video: object
 }>()
 
+const selectedQuality = ref('1080')
+
+
+const selectQuality = (value: string) => {
+    console.log("🚀 ~ selectQuality ~ value:", value)
+    selectedQuality.value = value.value
+}
 const videoQualities = [
     { label: '1080p - webdl  کیفیت ', value: '1080' },
     { label: '720p - webdl  کیفیت ', value: '720' },
