@@ -4,6 +4,7 @@
 
             <!-- Sidebar: Episodes -->
             <div class="w-1/3 flex flex-col h-full">
+                <VideoOptions :movie />
                 <!-- Video list (scrollable) -->
                 <div class="flex-1 overflow-y-auto flex flex-col gap-2">
                     <VideoItem v-for="episode in movie.episodes" :key="episode.id" :video="episode" :movie />

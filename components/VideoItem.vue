@@ -24,25 +24,36 @@
             <div class="flex justify-between mt-2 items-center">
                 <div class="flex items-center gap-1">
                     <icon icon="material-symbols:star-rounded" color="#F3B209" width="18" />
-                    <span class="text-white font-extrabold text-sm font-yekan-en">{{ movie?.user_rating || '3.5' }}</span>
-                    <span class="text-[#9DA5B2] text-sm font-yekan-fa">{{ video?.score || '(۱۲رای)' }}</span>
+                    <span class="text-white font-extrabold text-sm font-yekan-en">{{ toPersianNumber(movie?.user_rating)
+                        || toPersianNumber(3.5)
+                    }}</span>
+                    <span class="flex items-start text-[#9DA5B2] text-sm font-yekan-fa">
+                        (<span class="mr-1">رای</span>
+
+                        <span>{{ toPersianNumber(12) }}</span>)
+                    </span>
                 </div>
-                <span class="text-[#9DA5B2] text-sm font-yekan-en">{{ movie?.year || '۲۰۲۳' }}</span>
+                <span class="text-[#9DA5B2] text-sm font-yekan-fa">{{ toPersianNumber(movie?.year) ||
+                    toPersianNumber(2023) }}</span>
             </div>
 
             <!--Different Application Rating-->
             <div class="flex justify-between">
                 <div class="flex items-center gap-1">
-                    <img src="../assets/img/metacriticIcon.png" class="rounded-md" width="18" />
-                    <span class="text-white font-extrabold text-sm">{{ movie?.metacritic || '3.5' }}</span>
+                    <img src="../assets/img/metacriticIcon.png" class="rounded-sm" width="18" />
+                    <span class="text-white font-extrabold text-sm">{{ toPersianNumber(movie?.metacritic) ||
+                        toPersianNumber('3.5')
+                        }}</span>
                 </div>
                 <div class="flex items-center gap-1">
-                    <img src="../assets/img/rattenIcon.png" width="18" class="rounded-md" />
-                    <span class="text-white font-extrabold text-sm">{{ movie?.rotten || '3.5' }}</span>
+                    <img src="../assets/img/rattenIcon.png" width="18" class="rounded-sm" />
+                    <span class="text-white font-extrabold text-sm">{{ toPersianNumber(movie?.rotten) ||
+                        toPersianNumber('3.5') }}</span>
                 </div>
                 <div class="flex items-center gap-1">
-                    <img src="../assets/img/imdbIcon.png" width="18" class="rounded-md" />
-                    <span class="text-white font-extrabold text-sm">{{ movie?.imdb || '3.5' }}</span>
+                    <img src="../assets/img/imdbIcon.png" width="18" class="rounded-sm" />
+                    <span class="text-white font-extrabold text-sm">{{ toPersianNumber(movie?.imdb)
+                        || toPersianNumber('3.5') }}</span>
                 </div>
             </div>
         </div>
@@ -50,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import { toPersianNumber } from '@/utils/persianNumber'
+
 defineOptions({ name: 'VideoItem' })
 
 const { video, movie } = defineProps<{ video: any, movie: object }>()
