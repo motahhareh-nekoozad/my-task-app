@@ -1,22 +1,18 @@
 <template>
-    <div class="mx-auto px-4 py-6 min-h-screen">
-        <BaseButton class="mb-4" button-type="secondary" label="بازگشت" icon="iconamoon:arrow-left-2-thin">
-            <template>
-                <Icon icon="iconamoon:arrow-left-2-thin" width="    16" height="16"
-                    class="text-[#5A5E66] hover:cursor-pointer" />
-            </template>
-        </BaseButton>
-        <div class="flex flex-col lg:flex-row gap-8 items-stretch min-h-full">
+    <div v-loading="store.loading" class="mx-auto px-4 py-6 min-h-screen">
+        <BaseButton class="mb-4" button-type="secondary" label="بازگشت" icon="iconamoon:arrow-left-2-thin" />
 
+        <div class="flex flex-col lg:flex-row gap-8 items-stretch min-h-full">
             <!-- Sidebar: Episodes -->
-            <div class="w-full lg:w-1/3 flex flex-col h-full ">
-                <VideoOptions :movie="movie" />
+            <div class="w-full lg:w-1/3 flex flex-col h-full">
+                <!-- VideoOptions emits updateRating -->
+                <VideoOptions @update-rating="handleRating" />
 
                 <!-- Video list -->
-                <div class="flex-1 flex flex-col gap-2 overflow-y-auto hide-scrollbar max-h-[440px]">
-                    <VideoItem v-for="episode in movie.episodes" :key="episode.id" :video="episode" :movie="movie" />
+                <div class="flex-1 flex flex-col gap-2 overflow-y-auto max-h-[440px] hide-scrollbar">
+                    <VideoItem v-for="episode in store.movie.episodes" :key="episode.id" :video="episode"
+                        :movie="store.movie" />
                 </div>
-
                 <!-- Bottom button -->
                 <div class="mt-4 flex justify-center">
                     <button class="flex items-end gap-2 px-4 py-2 text-white font-semibold rounded-md transition">
@@ -27,48 +23,48 @@
             </div>
 
             <!-- Main Column: Video Player + Info -->
-            <div class="lg:w-2/3 flex flex-col gap-4 h-full ">
-                <VideoPlayerContainer :movie="movie" :video="video" class="flex-1 " />
+            <div class="lg:w-2/3 flex flex-col gap-4 h-full">
+                <VideoPlayerContainer :movie="store.movie" :video="store.video" class="flex-1" />
             </div>
-
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useMovieStore } from '~/stores/movie'
 import VideoItem from '~/components/VideoItem.vue'
 import VideoPlayerContainer from '~/components/base/container/VideoPlayerContainer.vue'
 
 const route = useRoute()
-const movie = ref<any>({ episodes: [] })
-const video = ref<any>({})
+const store = useMovieStore()
 
 onMounted(async () => {
     const id = route.params.id
-
-    // Fetch movie info
-    const res = await fetch(`https://ylnk.site/test/?action=info&id=${id}`)
-    movie.value = await res.json()
-
-    // Fetch video stream info
-    const vRes = await fetch(`https://ylnk.site/test/?action=stream&id=${id}`)
-    video.value = await vRes.json()
+    await store.fetchMovie(id)
+    await store.fetchVideo(id)
 })
+
+const handleRating = async (star: number) => {
+    const movieId = store.movie.id
+
+    await store.onStarUpdate(movieId, star)
+}
 </script>
 
-<style scoped>
-/*   hide scroll */
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari */
-}
 
+<style>
+/* global.css یا scoped اگر میخوای */
 .hide-scrollbar {
     -ms-overflow-style: none;
     /* IE 10+ */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
 }
 </style>

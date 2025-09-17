@@ -1,45 +1,78 @@
 <template>
-    <div class="flex justify-start items-center gap-2">
-
-
-        <!-- Render only if StarRating is loaded -->
-        <component v-if="StarRating" :is="StarRating" :show-rating="false" :star-size="25" active-color="#F3B209"
-            :padding="5" :rounded-corners="true"
-            :star-points="[50, 0, 61, 35, 98, 35, 68, 57, 79, 91, 50, 70, 21, 91, 32, 57, 2, 35, 39, 35]"
-            :increment="0.25" :rating="initialRating / 2" :max-rating="5" @rating-selected="onStarUpdate" />
+    <div class="flex items-center gap-2">
+        <svg v-for="star in maxStars" :key="star" @mouseenter="!isVoted && (hoverValue = star)"
+            @mouseleave="!isVoted && (hoverValue = 0)" @click="!isVoted && rate(star)"
+            :class="['cursor-pointer transition-colors', isVoted ? 'opacity-50 !cursor-not-allowed' : '']" width="30"
+            height="30" viewBox="0 0 24 24" fill="none" stroke="#F3B209" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon :fill="starFill(star)" points="12,2 15,9 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,9" />
+        </svg>
     </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
-
-const StarRating = ref<any>(null)
-
-onMounted(async () => {
-    const module = await import('vue-star-rating')
-    StarRating.value = module.default
-})
+import { ref, computed, watch, onMounted } from 'vue'
+import { useMovieStore } from '~/stores/movie'
 
 const props = defineProps({
     movieId: { type: [String, Number], required: true },
-    initialRating: { type: Number, default: 0 }
+    initialRating: { type: Number, default: 0 },
+    maxStars: { type: Number, default: 5 }
 })
 
-const currentRating = ref(props.initialRating)
+const emit = defineEmits<{
+    (e: 'update-rating', value: number): void
+}>()
+
+const store = useMovieStore()
+const hoverValue = ref(0)
+const ratingValue = ref(props.initialRating)
+const isVoted = ref(false)
 const votedKey = `voted-${props.movieId}`
-const voted = useLocalStorage(votedKey, false)
 
-const onStarUpdate = async (value: number) => {
-    if (voted.value) return
-    currentRating.value = (props.initialRating + value * 2) / 2
-    voted.value = true
+// Display rating for UI
+const displayRating = computed(() => (hoverValue.value ? hoverValue.value : ratingValue.value).toFixed(1))
 
-    await fetch(`https://ylnk.site/test/?action=rate&id=${props.movieId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rate: value * 2 })
-    })
+// Fill logic for stars
+const starFill = (star: number) => {
+    const value = hoverValue.value || ratingValue.value
+    return star <= value ? '#F3B209' : 'transparent'
 }
+
+// Check if user already voted
+onMounted(() => {
+    const localVote = localStorage.getItem(votedKey)
+    if (localVote === 'true' || store.voted) {
+        isVoted.value = true
+    }
+})
+
+// Click handler
+const rate = async (star: number) => {
+    if (isVoted.value) return
+
+    ratingValue.value = star
+    isVoted.value = true
+    localStorage.setItem(votedKey, 'true')
+
+    // Call store API method
+    await store.onStarUpdate(props.movieId, star)
+
+    // Update local rating from store (server might return new_rating)
+    ratingValue.value = store.movie.user_rating || ratingValue.value
+
+    // Emit to parent
+    emit('update-rating', ratingValue.value)
+}
+
+// Keep in sync with parent prop
+watch(() => props.initialRating, (val) => {
+    ratingValue.value = val
+})
 </script>
+
+<style scoped>
+svg polygon {
+    transition: fill 0.2s;
+}
+</style>
