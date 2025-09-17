@@ -1,12 +1,11 @@
 <template>
     <div
-        class="w-full p-2 flex flex-row-reverse items-start gap-3 rounded-lg hover:shadow-lg hover:bg-gray-800 transition cursor-pointer">
+        class="w-full p-2 flex flex-row-reverse justify-between  gap-3 rounded-lg hover:shadow-lg hover:bg-gray-800 transition cursor-pointer">
         <!-- Image  with overlay icons -->
-        <div class="relative flex-shrink-0 w-24 h-24">
-            <BaseImageItem :src="video?.poster" class="w-full h-full rounded-md object-cover" />
+        <div class="relative flex-shrink-0 w-48 h-48 bg-transparent rounded-md overflow-hidden">
+            <BaseImageItem :src="video?.poster" class="w-full h-full object-contain rounded-md" />
         </div>
-
-        <div class="flex-1 gap-1 text-right flex flex-col  justify-between">
+        <div class="flex-1 gap-1 text-right flex flex-col justify-between">
             <!-- Titles -->
             <div class="flex flex-col gap-1">
                 <h3 class="text-lg font-yekan-en text-white font-extrabold leading-tight">

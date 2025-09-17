@@ -1,19 +1,19 @@
 <template>
-    <div class="relative w-36 h-36">
+    <div class="relative w-96 h-96 rounded-md">
         <!-- Image -->
-        <img :src="src" alt="video cover" class="w-full h-full object-cover rounded-md" />
+        <img :src="src" alt="video cover" class="w-full h-full object-contain object-center rounded-md" />
 
         <!-- Icons overlay -->
-        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-            <div class="bg-[#43B100] rounded-md w-6 h-6 text-white p-1 ">
-                <Icon icon="ion:mic-outline" />
+        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 ">
+            <div class="bg-[#43B100] rounded-md flex items-center justify-center p-2 text-white">
+                <Icon icon="ion:mic-outline" class="w-4 h-4" />
             </div>
-            <div class="bg-[#245DEF] rounded-md w-6 h-6 text-white p-1  ">
-                <Icon icon="mingcute:subtitle-line" />
+            <div class="bg-[#245DEF] rounded-md text-white items-center justify-center p-2">
+                <Icon icon="mingcute:subtitle-line" class=" w-4 h-4" />
 
             </div>
-            <div class="bg-[#FB7800] rounded-md w-6 h-6 text-white p-1 ">
-                <Icon icon="bi:fire" />
+            <div class="bg-[#FB7800] rounded-md items-center justify-center p-2 text-white ">
+                <Icon icon="bi:fire" class=" w-4 h-4" />
             </div>
         </div>
     </div>
